@@ -21,16 +21,13 @@ pipelines:
     init: # -- First time init
     - step:
         script:
-          - npm install
           - git ftp init -u "$FTP_USERNAME" -p "$FTP_PASSWORD" ftp://$FTP_HOST
     deploy-all: # -- Deploys all files from the selected commit
     - step:
         script:
-          - npm install
           - git ftp push -u "$FTP_USERNAME" -p "$FTP_PASSWORD" ftp://$FTP_HOST --all
   branches: # Automated triggers on commits to branches
     master: # -- When committing to master branch
     - step:
         script:
-          - npm install
           - git ftp push -u "$FTP_USERNAME" -p "$FTP_PASSWORD" ftp://$FTP_HOST
