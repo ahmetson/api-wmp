@@ -76,9 +76,9 @@ $query_builder = TRUE;
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
-	'username' => 'u433280043_uwmp',
-	'password' => 'lLSDniNv2V48qpGYSE',
-	'database' => 'u433280043_wmp',
+	'username' => (ENVIRONMENT !== 'production') ? 'root' : 'u433280043_uwmp',
+	'password' => (ENVIRONMENT !== 'production') ? 'root' : 'lLSDniNv2V48qpGYSE',
+	'database' => (ENVIRONMENT !== 'production') ? 'wmp'  : 'u433280043_wmp',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

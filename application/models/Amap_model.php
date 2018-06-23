@@ -34,11 +34,15 @@ class Amap_model extends CI_Model {
 		if ( empty ( $result [ 'status' ] ) || $result [ 'status' ] == 0 ) {
 			$response = array ( 'response' => $this->config->item ( 'response_3rd_party_side_error' ) ); 
 		} else {
-			$locatonString = $result [ 'geocodes' ][ 0 ][ 'location' ];
-			$location = explode  ( ',', $locatonString );
+			if (null == $result['geocodes']) {
+				$response = array ( 'response' => $this->config->item ( 'response_3rd_party_side_error' ) ); 
+			} else {
+				$locatonString = $result [ 'geocodes' ][ 0 ][ 'location' ];
+				$location = explode  ( ',', $locatonString );
 
-			$response = array ( 'response' => $this->config->item ( 'response_success' ),
-								'longitude' => $location[0], 'latitude' => $location[1] ); 
+				$response = array ( 'response' => $this->config->item ( 'response_success' ),
+									'longitude' => $location[0], 'latitude' => $location[1] ); 
+			}
 		}
 
 		return $response;
