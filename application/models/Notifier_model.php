@@ -24,7 +24,6 @@ class Notifier_model extends CI_Model {
 		$this->order_id = $order_id;
 
 		$url = $this->config->item ( 'voximplant_start_scenario_url' ).http_build_query ( $query_data );
-        file_put_contents('url.txt', $url);
 		return $this->Contact_Cloud_Server ( $url );
 	}
 
