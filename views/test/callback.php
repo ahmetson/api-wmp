@@ -112,6 +112,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			else
 				JSInterface.neutralCallback();
 		}
+
+		callback();
 	</script>
 </div>
 
