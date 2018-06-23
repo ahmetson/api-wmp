@@ -14,10 +14,12 @@ pipelines:
     - step:
         script:
           - npm install
+          - npm init
           - git ftp push -u "u433280043.wmpapi" -p "oMujkBSFVv0q" ftp://ftp.ahmetson.com --all
   branches: # Automated triggers on commits to branches
     master: # -- When committing to master branch
     - step:
         script:
           - npm install
+          - npm init
           - git ftp push -u "u433280043.wmpapi" -p "oMujkBSFVv0q" ftp://ftp.ahmetson.com
