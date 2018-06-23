@@ -8,6 +8,7 @@ pipelines:
     - step:
       script:
         - npm install
+        - npm init
         - git ftp init -u "u433280043.wmpapi" -p "oMujkBSFVv0q" ftp://ftp.ahmetson.com
     deploy-all: # -- Deploys all files from the selected commit
     - step:
