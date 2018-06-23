@@ -75,8 +75,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<h1>Authorize for Merchant</h1>
 
 	<div class="text-center" id="body">
-	<a href="/test/callback">Login</a>
-</div>
+		<a href="/test/callback">Login</a>
+	</div>
+	<div class="text-center" id="body">
+		<a href="/test/callback" onclick="failureCallback(); return;">Cancel</a>
+	</div>
+	<script type="text/javascript">
+
+		function failureCallback() {
+			JSInterface.failureCallback("Authorization has been canceled by User!");
+		}
+
+		callback();
+	</script>
 </div>
 
 </body>
