@@ -25,6 +25,9 @@ class Test extends CI_Controller {
 
 	public function callback()
 	{
-		$this->load->view('test/callback');
+		$data = array('state' => 'success', 'shopId' => 123123, 'token' => 'asdaszxfkjlfjaskn19123klsahdeufo8u2ewqlhdn');
+		//$data = array('state' => 'neutral');
+		//$data = array('state' => 'failure', 'message' => 'Something happened');
+		$this->load->view('test/callback', $data);
 	}
 }

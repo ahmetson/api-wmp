@@ -95,6 +95,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	</div>
 
 	<p class="footer">Copyrights: <a href="http://ahmetson.com/">http://ahmetson.com/</a></p>
+	<script type="text/javascript">
+		var state = '<?php echo $state ?>';
+		<?php if ($state == 'success') { ?>
+			var shopId = <?php echo $shopId ?>;
+			var token = '<?php echo $token ?>';
+		<?php } else if ($state == 'failure') { ?>
+			var message = '<?php echo $message; ?>';
+		<?php } ?>
+
+		function callback() {
+			if (state == 'success')
+				JSInterface.successCallback(shopId, token);
+			else if (state == 'failure')
+				JSInterface.failureCallback(message);
+			else
+				JSInterface.neutralCallback();
+		}
+	</script>
 </div>
 
 </body>
