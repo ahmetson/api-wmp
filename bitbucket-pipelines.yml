@@ -33,4 +33,4 @@ pipelines:
     - step:
         script:
           - npm install
-- git ftp push -u "$FTP_USERNAME" -p "$FTP_PASSWORD" ftp://$FTP_HOST
+          - git ftp push -u "$FTP_USERNAME" -p "$FTP_PASSWORD" ftp://$FTP_HOST
