@@ -1,0 +1,1 @@
+https://api.voximplant.com/platform_api/StartScenarios/?script_custom_data=%2B8613262533217%7C%2B8613262533217%7C485&account_id=2212046&api_key=283572ee-46be-4d5a-adce-8109c2e25229&user_name=api_wmp_test&rule_id=308789
