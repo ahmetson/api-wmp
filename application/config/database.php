@@ -76,9 +76,9 @@ $query_builder = TRUE;
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
-	'username' => (ENVIRONMENT !== 'production') ? 'root' : 'u433280043_uwmp',
-	'password' => (ENVIRONMENT !== 'production') ? 'root' : 'lLSDniNv2V48qpGYSE',
-	'database' => (ENVIRONMENT !== 'production') ? 'wmp'  : 'u433280043_wmp',
+	'username' => ($_SERVER['HTTP_HOST'] == 'api.wmp.host') ? 'root' : 'u433280043_uwmp',
+	'password' => ($_SERVER['HTTP_HOST'] == 'api.wmp.host') ? 'root' : 'lLSDniNv2V48qpGYSE',
+	'database' => ($_SERVER['HTTP_HOST'] == 'api.wmp.host') ? 'wmp'  : 'u433280043_wmp',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
