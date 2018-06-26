@@ -1,0 +1,6 @@
+{
+    "response": 1,
+    "shopId": 163776251,
+    "token": "1f8d0b18da04fddf37cc6a15eee76267",
+    "refreshToken": "944d7d2612da3fb90d35d3de84072782"
+}

@@ -20,7 +20,10 @@ class Test extends CI_Controller {
 	 */
 	public function login()
 	{
-		$this->load->view('test/login');
+		$this->load->model('Eleme_merchant_model');
+		$data = array();
+		$data['authUrl'] = $this->Eleme_merchant_model->GetAuthUrl();
+		$this->load->view('test/login', $data);
 	}
 
 	public function callback()

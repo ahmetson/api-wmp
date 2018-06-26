@@ -1,9 +1,7 @@
 <?php
 
-namespace ElemeOpenApi\Api;
-
-use ElemeOpenApi\Config\Config;
-use ElemeOpenApi\Protocol\RpcClient;
+require_once(dirname(__FILE__)."\\..\\..\\ElemeOpenApi\\Config\\Config.php");
+require_once(dirname(__FILE__)."\\..\\..\\ElemeOpenApi\\Protocol\\RpcClient.php");
 
 class RpcService
 {

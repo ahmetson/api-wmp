@@ -75,7 +75,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<h1>Authorize for Merchant</h1>
 
 	<div class="text-center" id="body">
-		<a href="/test/callback">Login</a>
+		<a href="<?php echo $authUrl; ?>">Login</a>
 	</div>
 	<div class="text-center" id="body">
 		<a href="/test/callback" onclick="failureCallback(); return;">Cancel</a>

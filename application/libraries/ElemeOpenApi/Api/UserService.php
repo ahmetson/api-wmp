@@ -1,6 +1,7 @@
 <?php
 
-namespace ElemeOpenApi\Api;
+
+require(dirname(__FILE__).'/RpcService.php');
 
 /**
  * 商户服务

@@ -1,18 +1,16 @@
 <?php
 
-namespace ElemeOpenApi\Protocol;
-
-use ElemeOpenApi\Config\Config;
-use ElemeOpenApi\Exception\BusinessException;
-use ElemeOpenApi\Exception\ExceedLimitException;
-use ElemeOpenApi\Exception\IllegalRequestException;
-use ElemeOpenApi\Exception\InvalidSignatureException;
-use ElemeOpenApi\Exception\InvalidTimestampException;
-use ElemeOpenApi\Exception\PermissionDeniedException;
-use ElemeOpenApi\Exception\ServerErrorException;
-use ElemeOpenApi\Exception\UnauthorizedException;
-use ElemeOpenApi\Exception\ValidationFailedException;
-use Exception;
+require_once(dirname(__FILE__)."/../../ElemeOpenApi/Config/Config.php");
+require_once(dirname(__FILE__)."/../../ElemeOpenApi/Exception/BusinessException.php");
+require_once(dirname(__FILE__)."/../../ElemeOpenApi/Exception/ExceedLimitException.php");
+require_once(dirname(__FILE__)."/../../ElemeOpenApi/Exception/IllegalRequestException.php");
+require_once(dirname(__FILE__)."/../../ElemeOpenApi/Exception/InvalidSignatureException.php");
+require_once(dirname(__FILE__)."/../../ElemeOpenApi/Exception/InvalidTimestampException.php");
+require_once(dirname(__FILE__)."/../../ElemeOpenApi/Exception/PermissionDeniedException.php");
+require_once(dirname(__FILE__)."/../../ElemeOpenApi/Exception/ServerErrorException.php");
+require_once(dirname(__FILE__)."/../../ElemeOpenApi/Exception/UnauthorizedException.php");
+require_once(dirname(__FILE__)."/../../ElemeOpenApi/Exception/ValidationFailedException.php");
+//use Exception;
 
 class RpcClient
 {
@@ -142,6 +140,7 @@ class RpcClient
         curl_setopt($ch, CURLOPT_USERAGENT, "eleme-openapi-php-sdk");
         curl_setopt($ch, CURLOPT_TIMEOUT, 10);
         curl_setopt($ch, CURLOPT_ENCODING, "gzip");
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
         $response = curl_exec($ch);
         if (curl_errno($ch)) {

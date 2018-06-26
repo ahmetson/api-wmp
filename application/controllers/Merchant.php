@@ -15,14 +15,15 @@ class Merchant extends CI_Controller {
 		$this->load->view('welcome_message');
 	}
 
-	public function orders() {
+	public function get_orders() {
 		// Check whether or not the request is in POST method.
 		if ( 'get' != $this->input->method () ) {
 			json_response ( array ( 'response' => $this->config->item ( 'response_incorrect_request' ),
 									'message' => 'POST METHOD IS REQUIRED!' ) );
 		}
 
-		$elemeShopId		= $this->input->get ('elemeShopId', true);
+		$merchantType		= $this->input->get ('merchantType', true);
+		$elemeShopId		= $this->input->get ('shopId', true);
 		$elemeShopPassword	= $this->input->get ('elemeShopPassword', true);
 		$elemeShopAccount	= $this->input->get ('elemeShopAccount', true);
 
@@ -83,5 +84,65 @@ class Merchant extends CI_Controller {
 		$notification_status = $this->notifier_model->Call_To_Client ( $callto, $callback );
 
 		json_response ( array ( 'response' => $notification_status ) );
+	}
+
+	/** This is an AJAX method, called from the Callback method
+
+	*/
+	public function set_eleme_token() {
+		// Check whether or not the request is in POST method.
+		if ( 'get' != $this->input->method () ) {
+			json_response ( array ( 'response' => $this->config->item ( 'response_incorrect_request' ),
+									'message' => 'GET METHOD IS REQUIRED!' ) );
+		}
+
+		$code				= $this->input->get ('code', true);
+
+		if (null !== $code) {
+			$this->load->model('Eleme_merchant_model');
+
+			try {
+				$response = $this->Eleme_merchant_model->SetToken($code);
+				json_response ( array ( 'response' => $this->config->item ( 'response_success' ),
+									'shopId' => $response['shopId'],
+									'token'	=> $response['token'], 
+									'refreshToken' => $response['refresh_token'] ) );
+			} catch (Exception $e) {
+				json_response ( array ( 'response' => $this->config->item ( 'response_incorrect_request' ),
+									'message' => $e->getMessage() ) );
+			}
+
+			
+		}
+
+		json_response ( array ( 'response' => $this->config->item ( 'response_incorrect_request' ),
+									'message' => 'MISSED SOME PARAMETERS' ) );
+	}
+
+	/* This method is requested by Ele.me side. It is the only method on the WaimaiPay, that is requested from the Ele.me's side!
+		It can be called by Ele.me in three cases:
+		1) Authorization success - @returns Code
+		2) Authorization fail    - @returns Error
+		3) Neutral			     - When user presses WaiMaiPay link on his Eleme account
+	*/
+	public function eleme_server_bridge () {
+		// Check the request case
+		$code				= $this->input->get ('code', true);
+		$error				= $this->input->get ('error', true);
+		$errorDescription	= $this->input->get ('error_description', true);
+		$data = array('state' => 'neutral');
+
+		if ( null != $code ) {
+			$data['state'] = 'auth_succeed';
+			$data['code'] = $code;
+		} else if ( null != $error && null != $errorDescription ) {
+			$data['state'] = 'auth_failed';
+			$data['error'] = $error;
+			$data['errorDescription'] = $errorDescription;
+		}
+
+		//$data = array('state' => 'neutral');
+		//$data = array('state' => 'failure', 'message' => 'Something happened');
+		$this->load->view('merchant/eleme/callback', $data);
 	}
 }
