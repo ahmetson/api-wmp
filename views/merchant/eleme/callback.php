@@ -343,7 +343,7 @@ margin-left: -30px;
 	<script type="text/javascript">
 		<?php if ($state == 'auth_succeed') { ?>
 			var code = '<?php echo $code; ?>';
-			var tokenGettingUrl = 'http://api.wmp.host/merchant/set-eleme-token?code='+code;
+			var tokenGettingUrl = '/merchant/set-eleme-token?code='+code;
 
 
 			$(document).ajaxStart(function() {
