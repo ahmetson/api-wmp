@@ -1,7 +1,7 @@
 <?php
 
 
-require(dirname(__FILE__).'/RpcService.php');
+require(dirname(__FILE__).DIRECTORY_SEPARATOR.'RpcService.php');
 
 /**
  * 商户服务

@@ -1,7 +1,7 @@
 <?php
 
-require(dirname(__FILE__)."/../Exception/ServiceException.php");
-require(dirname(__FILE__)."/../Exception/IllegalRequestException.php");
+require(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'Exception'.DIRECTORY_SEPARATOR.'ServiceException.php');
+require(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'Exception'.DIRECTORY_SEPARATOR.'IllegalRequestException.php');
 
 class OAuthClient
 {

@@ -1,15 +1,15 @@
 <?php
 
-require_once(dirname(__FILE__)."/../../ElemeOpenApi/Config/Config.php");
-require_once(dirname(__FILE__)."/../../ElemeOpenApi/Exception/BusinessException.php");
-require_once(dirname(__FILE__)."/../../ElemeOpenApi/Exception/ExceedLimitException.php");
-require_once(dirname(__FILE__)."/../../ElemeOpenApi/Exception/IllegalRequestException.php");
-require_once(dirname(__FILE__)."/../../ElemeOpenApi/Exception/InvalidSignatureException.php");
-require_once(dirname(__FILE__)."/../../ElemeOpenApi/Exception/InvalidTimestampException.php");
-require_once(dirname(__FILE__)."/../../ElemeOpenApi/Exception/PermissionDeniedException.php");
-require_once(dirname(__FILE__)."/../../ElemeOpenApi/Exception/ServerErrorException.php");
-require_once(dirname(__FILE__)."/../../ElemeOpenApi/Exception/UnauthorizedException.php");
-require_once(dirname(__FILE__)."/../../ElemeOpenApi/Exception/ValidationFailedException.php");
+require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'ElemeOpenApi'.DIRECTORY_SEPARATOR.'onfig'.DIRECTORY_SEPARATOR.'Config.php');
+require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'ElemeOpenApi'.DIRECTORY_SEPARATOR.'Exception'.DIRECTORY_SEPARATOR.'BusinessException.php');
+require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'ElemeOpenApi'.DIRECTORY_SEPARATOR.'Exception'.DIRECTORY_SEPARATOR.'ExceedLimitException.php');
+require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'ElemeOpenApi'.DIRECTORY_SEPARATOR.'Exception'.DIRECTORY_SEPARATOR.'IllegalRequestException.php');
+require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'ElemeOpenApi'.DIRECTORY_SEPARATOR.'Exception'.DIRECTORY_SEPARATOR.'InvalidSignatureException.php');
+require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'ElemeOpenApi'.DIRECTORY_SEPARATOR.'Exception'.DIRECTORY_SEPARATOR.'InvalidTimestampException.php');
+require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'ElemeOpenApi'.DIRECTORY_SEPARATOR.'Exception'.DIRECTORY_SEPARATOR.'PermissionDeniedException.php');
+require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'ElemeOpenApi'.DIRECTORY_SEPARATOR.'Exception'.DIRECTORY_SEPARATOR.'ServerErrorException.php');
+require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'ElemeOpenApi'.DIRECTORY_SEPARATOR.'Exception'.DIRECTORY_SEPARATOR.'UnauthorizedException.php');
+require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'ElemeOpenApi'.DIRECTORY_SEPARATOR.'Exception'.DIRECTORY_SEPARATOR.'ValidationFailedException.php');
 //use Exception;
 
 class RpcClient

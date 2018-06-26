@@ -5,9 +5,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 //use ElemeOpenApi\Config\Config;
 //use ElemeOpenApi\Api\OrderService;
 
-require_once(dirname(__FILE__).'/ElemeOpenApi/Config/Config.php');
-require_once(dirname(__FILE__).'/ElemeOpenApi/Api/UserService.php');
-require_once(dirname(__FILE__).'/ElemeOpenApi/OAuth/OAuthClient.php');
+require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'ElemeOpenApi'.DIRECTORY_SEPARATOR.'Config'.DIRECTORY_SEPARATOR.'Config.php');
+require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'ElemeOpenApi'.DIRECTORY_SEPARATOR.'Api'.DIRECTORY_SEPARATOR.'UserService.php');
+require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'ElemeOpenApi'.DIRECTORY_SEPARATOR.'OAuth'.DIRECTORY_SEPARATOR.'OAuthClient.php');
 
 
 class Openeleme {
