@@ -51,7 +51,7 @@ class Merchant extends CI_Controller {
 	}
 
 	public function auth() {
-
+		header('Access-Control-Allow-Origin', '*');
 		// Check whether or not the request is in POST method.
 		if ( 'get' != $this->input->method () ) {
 			json_response ( array ( 'response' => $this->config->item ( 'response_incorrect_request' ),
@@ -90,6 +90,7 @@ class Merchant extends CI_Controller {
 
 	*/
 	public function set_eleme_token() {
+		header('Access-Control-Allow-Origin', '*');
 		// Check whether or not the request is in POST method.
 		if ( 'get' != $this->input->method () ) {
 			json_response ( array ( 'response' => $this->config->item ( 'response_incorrect_request' ),
@@ -126,6 +127,7 @@ class Merchant extends CI_Controller {
 		3) Neutral			     - When user presses WaiMaiPay link on his Eleme account
 	*/
 	public function eleme_server_bridge () {
+		header('Access-Control-Allow-Origin', '*');
 		// Check the request case
 		$code				= $this->input->get ('code', true);
 		$error				= $this->input->get ('error', true);
