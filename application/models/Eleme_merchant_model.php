@@ -71,8 +71,8 @@ class Eleme_merchant_model extends CI_Model {
 		$orders = array();
 
 		for ( $i = 0; $i < $amount; $i++ ) {
-			$id 			= time () + '' + $i;
-			$address 		= 'address' + $i;
+			$id 			= time () . '' . $i;
+			$address 		= 'address' . $i;
 			$phone 			= '13262533217';
 			$invoice		= true;
 			$delivarable	= ( rand ( 0, 1 ) == 1 ) ? true : false;
