@@ -1,8 +1,6 @@
 <?php
 
-namespace ElemeOpenApi\Api;
-
-require('RpcService.php');
+require_once ( dirname( __FILE__ ) .DIRECTORY_SEPARATOR.'RpcService.php' );
 
 /**
  * 订单服务

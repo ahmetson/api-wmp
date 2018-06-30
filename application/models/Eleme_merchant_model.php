@@ -8,16 +8,18 @@ class Eleme_merchant_model extends CI_Model {
 		$this->load->library('Openeleme');
 	}
 
-	public function GetOrders ( $shopId, $shopAccount, $shopPassword ) {
+	public function GetOrders ( $token, $shopId, $pageNo, $pageSize, $deliveryDay ) {
+		return $this->GenerateFullOrdersUntil ( 5, $pageNo );
 		
-		return $this->openeleme->GetOrders($shopId, $shopAccount, $shopPassword);
+		//$orderList = $this->openeleme->GetOrders( $token, $shopId, $pageNo, $pageSize, $deliveryDay );
+		//return $this->CreateOrderJSONList ( $orderList );
 	}
 
 	public function SetToken($code) {
 		$response = $this->openeleme->SetToken($code);
 
 		// Need the Shop Id of the user
-		$shopId		= $this->openeleme->GetShopId($response);
+		$shopId		= $this->openeleme->GetShopId( $response );
 
 		/*$this->InsertOrUpdateTokenOnDatabase( array ( 'shop_id' => $shopId, 
 												  'token' => $response [ 'access_token' ],
@@ -45,5 +47,47 @@ class Eleme_merchant_model extends CI_Model {
 
 	public function GetAuthUrl() {
 		return $this->openeleme->GetAuthUrl();
+	}
+
+	/** For Test purpose only
+	*/
+	public function GenerateFullOrdersUntil( $pageNo, $currentPageNo ) {
+		$amount = 50;
+
+		if ( $currentPageNo >= $pageNo ) {
+			$amount = rand ( 1, 50 );
+		}
+
+		return $this->GenerateOrders ( $amount );
+	}
+
+	/** For Test purpose only
+	*/
+	public function GenerateOrders ( $amount ) {
+		if ( $amount > 50 || $amount < 1 ) {
+			return array();
+		}
+
+		$orders = array();
+
+		for ( $i = 0; $i < $amount; $i++ ) {
+			$id 			= time () + '' + $i;
+			$address 		= 'address' + $i;
+			$phone 			= '13262533217';
+			$invoice		= true;
+			$delivarable	= ( rand ( 0, 1 ) == 1 ) ? true : false;
+
+			$order = array ( 'id' => $id, 'address' => $address, 'phone' => $phone, 'invoce' => $invoice, 'delivarable' => $delivarable );
+			$orders[] = $order;
+		}
+
+		return $orders;
+	}
+
+	private function CreateOrderJSONList( $ordersList ) {
+		if ( $ordersList->total == 0 ) {
+			return array();
+		}
+		return $orderList->list;
 	}
 }

@@ -7,7 +7,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'ElemeOpenApi'.DIRECTORY_SEPARATOR.'Config'.DIRECTORY_SEPARATOR.'Config.php');
 require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'ElemeOpenApi'.DIRECTORY_SEPARATOR.'Api'.DIRECTORY_SEPARATOR.'UserService.php');
+require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'ElemeOpenApi'.DIRECTORY_SEPARATOR.'Api'.DIRECTORY_SEPARATOR.'OrderService.php');
 require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'ElemeOpenApi'.DIRECTORY_SEPARATOR.'OAuth'.DIRECTORY_SEPARATOR.'OAuthClient.php');
+
+class Token {
+	public $access_token;
+}
 
 
 class Openeleme {
@@ -26,40 +31,53 @@ class Openeleme {
 	public function __construct() {
 		$this->CI =& get_instance();
 
-		$this->CI->config->load('merchant');
+		$this->CI->config->load ( 'merchant' );
 
-		$this->appKey 		= $this->CI->config->item('eleme_app_key');
-		$this->appSecret 	= $this->CI->config->item('eleme_app_secret');
-		$this->config 		= new Config($this->appKey, $this->appSecret, $this->CI->config->item('eleme_is_sandbox'));
+		$this->appKey 		= $this->CI->config->item ( 'eleme_app_key' );
+		$this->appSecret 	= $this->CI->config->item ( 'eleme_app_secret' );
+		$this->config 		= new Config ( $this->appKey, $this->appSecret, $this->CI->config->item ( 'eleme_is_sandbox' ) );
 	}
 
-	public function GetAuthUrl() {
+	public function GetAuthUrl () {
 	    //使用config对象，实例化一个授权类
 
-	    $client = new OAuthClient($this->config);
+	    $client = new OAuthClient ( $this->config );
 
 	    $state 			= "0";
 	    $scope 			= "all";
 	    
 	    
 	    //根据OAuth2.0中的对应state，scope和callback_url，获取授权URLs
-	    return $client->get_auth_url($state, $scope, $this->callbackUrl);
+	    return $client->get_auth_url ( $state, $scope, $this->callbackUrl );
 	}
 
-	public function SetToken($code) {
-		$client = new OAuthClient($this->config);
+	public function SetToken ( $code ) {
+		$client = new OAuthClient ( $this->config );
 
-		return $client->get_token_by_code($code, $this->callbackUrl);
+		return $client->get_token_by_code ( $code, $this->callbackUrl );
 	}
 
-	public function RefreshToken($refreshToken) {
-		return $client->get_token_by_refresh_token($refreshToken, "all");
+	public function RefreshToken ( $refreshToken ) {
+		return $client->get_token_by_refresh_token ( $refreshToken, "all" );
 	}
 
-	public function GetShopId($token) {
-		$userService = new UserService($token, $this->config);
+	public function GetShopId ( $token ) {
+		$userService = new UserService ( $token, $this->config );
 
 		$response = $userService->get_user();
 		return $response->authorizedShops[0]->id;
+	}
+
+	public function GetOrders ( $token, $shopId, $pageNo, $pageSize, $deliveryDay ) {
+
+		
+		$tokenObj = new Token();
+		$tokenObj->access_token = $token;
+
+		$orderService = new OrderService ( $tokenObj, $this->config );
+
+		$response = $orderService->get_all_orders ( $shopId, $pageNo, $pageSize, $deliveryDay );
+
+		return $response;
 	}
 }

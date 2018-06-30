@@ -15,7 +15,7 @@ class Merchant extends CI_Controller {
 		$this->load->view('welcome_message');
 	}
 
-	public function get_orders() {
+	public function get_orders () {
 		// Check whether or not the request is in POST method.
 		if ( 'get' != $this->input->method () ) {
 			json_response ( array ( 'response' => $this->config->item ( 'response_incorrect_request' ),
@@ -23,31 +23,34 @@ class Merchant extends CI_Controller {
 		}
 
 		$merchantType		= $this->input->get ('merchantType', true);
-		$elemeShopId		= $this->input->get ('shopId', true);
-		$elemeShopPassword	= $this->input->get ('elemeShopPassword', true);
-		$elemeShopAccount	= $this->input->get ('elemeShopAccount', true);
 
-		// Since we are in the development part, we can use the demo shop data
-		if ( 'development' == ENVIRONMENT ) {
-			$this->config->load ( 'merchant' );
+		if ($merchantType != "eleme") {
+			json_response ( array ( 'response' => $this->config->item ( 'response_incorrect_request' ),
+									'message' => 'UNSUPPORTED MERCHANT NAME' ) );
+		}
 
-			$elemeShopId		= $this->config->item ( 'eleme_demo_shop_id' );
-			$elemeShopPassword	= $this->config->item ( 'eleme_demo_shop_password' );
-			$elemeShopAccount	= $this->config->item ( 'eleme_demo_shop_account' );
-		} 
+		$token 			= $this->input->get ( 'token', true );
+		$shopId			= $this->input->get ( 'shopId', true );
+		$pageNo			= $this->input->get ( 'pageNo', true );
+		$pageSize		= $this->input->get ( 'pageSize', true );
+		$deliveringDay	= $this->input->get ( 'deliveringDay', true );
+		//$token = "dab8748599186bc82be515a3896b4df6";
 
-		if (null !== $elemeShopId && null !== $elemeShopAccount && null !== $elemeShopPassword) {
+		$this->ReturnElemeOrders ( $token, $shopId, $pageNo, $pageSize, $deliveringDay );
+			
+	}
+
+	private function ReturnElemeOrders ( $token, $shopId, $pageNo, $pageSize, $deliveringDay ) {
+		if ( null !== $shopId && null !== $pageNo && null !== $pageSize && null !== $deliveringDay ) {
 			$this->load->model('Eleme_merchant_model');
 
-			$orders = $this->Eleme_merchant_model->getOrders($elemeShopId, $elemeShopAccount, $elemeShopPassword);
+			$orders = $this->Eleme_merchant_model->getOrders ( $token, $shopId, $pageNo, $pageSize, $deliveringDay );
 
 			json_response ( array ( 'response' => $this->config->item ( 'response_success' ),
 									'orders' => $orders ) );
 		}
-
 		json_response ( array ( 'response' => $this->config->item ( 'response_incorrect_request' ),
 									'message' => 'MISSED SOME PARAMETERS' ) );
-			
 	}
 
 	public function auth() {
