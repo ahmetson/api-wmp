@@ -19,7 +19,7 @@ class Merchant extends CI_Controller {
 		// Check whether or not the request is in POST method.
 		if ( 'get' != $this->input->method () ) {
 			json_response ( array ( 'response' => $this->config->item ( 'response_incorrect_request' ),
-									'message' => 'POST METHOD IS REQUIRED!' ) );
+									'message' => 'GET METHOD IS REQUIRED!' ) );
 		}
 
 		$merchantType		= $this->input->get ('merchantType', true);
@@ -149,5 +149,9 @@ class Merchant extends CI_Controller {
 		//$data = array('state' => 'neutral');
 		//$data = array('state' => 'failure', 'message' => 'Something happened');
 		$this->load->view('merchant/eleme/callback', $data);
+	}
+
+	public function eleme_order_complete() {
+		
 	}
 }

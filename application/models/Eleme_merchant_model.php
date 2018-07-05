@@ -9,10 +9,14 @@ class Eleme_merchant_model extends CI_Model {
 	}
 
 	public function GetOrders ( $token, $shopId, $pageNo, $pageSize, $deliveryDay ) {
-		return $this->GenerateFullOrdersUntil ( 5, $pageNo );
+		//return $this->GenerateFullOrdersUntil ( 5, $pageNo );
 		
-		//$orderList = $this->openeleme->GetOrders( $token, $shopId, $pageNo, $pageSize, $deliveryDay );
-		//return $this->CreateOrderJSONList ( $orderList );
+		$orderList = $this->openeleme->GetOrders( $token, $shopId, $pageNo, $pageSize, $deliveryDay );
+		$orders = $this->CreateOrderJSONList ( $orderList );
+
+		//echo "<pre>";
+		//var_dump($orders);
+		return $orders;
 	}
 
 	public function SetToken($code) {
@@ -78,7 +82,7 @@ class Eleme_merchant_model extends CI_Model {
 			$deliverable	= ( rand ( 0, 1 ) == 1 ) ? true : false;
 			$location		= '123.31231,32.123123';
 
-			$order = array ( 'id' => $id, 'address' => $address, 'phone' => $phone, 'invoce' => $invoice, 'deliverable' => $deliverable, 'location' => $location );
+			$order = array ( 'id' => $id, 'address' => $address, 'phone' => $phone, 'invoice' => $invoice, 'deliverable' => $deliverable, 'location' => $location );
 			$orders[] = $order;
 		}
 
@@ -89,6 +93,38 @@ class Eleme_merchant_model extends CI_Model {
 		if ( $ordersList->total == 0 ) {
 			return array();
 		}
-		return $orderList->list;
+
+		$orders = array();
+		
+
+		foreach ($ordersList->list as $o) {
+			$order = array('id'=>'', 'longitude' => '', 'latitude' => '', 'address' => '', 'phone' => '', 'invoice' => '', 'created_time' => '', 'deliverable' => '');
+			$order['id']	= $o->id;
+			if (null != $o->phoneList && count($o->phoneList)>0) {
+				$order['phone'] = $o->phoneList[0];
+			} else {
+				$order['phone'] = '13262533217';
+			}
+			$location = explode(',', $o->deliveryGeo);
+			$order['longitude'] = $location[0];
+			$order['latitude'] = $location[1];
+			$order['address'] = $o->address;
+			if (null == $o->invoice || false == $o->invoice){
+				$order['invoice'] = false;
+			} else {
+				$order['invoice'] = true;
+			}
+			$order['created_time'] = $o->activeAt;
+			if ($o->status == "valid") {
+				$order['deliverable'] = true;
+			} else {
+				$order['deliverable'] = false;
+			}
+
+			$orders[] = $order;
+		}
+
+		return $orders;
 	}
+
 }
