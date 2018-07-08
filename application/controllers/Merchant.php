@@ -123,6 +123,35 @@ class Merchant extends CI_Controller {
 									'message' => 'MISSED SOME PARAMETERS' ) );
 	}
 
+	public function refresh_eleme_token() {
+		if ( 'get' != $this->input->method () ) {
+			json_response ( array ( 'response' => $this->config->item ( 'response_incorrect_request' ),
+									'message' => 'GET METHOD IS REQUIRED!' ) );
+		}
+
+		$token				= $this->input->get ('refreshToken', true);
+
+		if (null !== $token) {
+			$this->load->model('Eleme_merchant_model');
+
+			try {
+				$response = $this->Eleme_merchant_model->RefreshToken($token);
+				json_response ( array ( 'response' => $this->config->item ( 'response_success' ),
+									'shopId' => $response['shopId'],
+									'token'	=> $response['token'], 
+									'refreshToken' => $response['refresh_token'] ) );
+			} catch (Exception $e) {
+				json_response ( array ( 'response' => $this->config->item ( 'response_incorrect_request' ),
+									'message' => $e->getMessage() ) );
+			}
+
+			
+		}
+
+		json_response ( array ( 'response' => $this->config->item ( 'response_incorrect_request' ),
+									'message' => 'MISSED SOME PARAMETERS' ) );
+	}
+
 	/* This method is requested by Ele.me side. It is the only method on the WaimaiPay, that is requested from the Ele.me's side!
 		It can be called by Ele.me in three cases:
 		1) Authorization success - @returns Code

@@ -33,6 +33,20 @@ class Eleme_merchant_model extends CI_Model {
 		return array('shopId' => $shopId, 'token' => $response->access_token, 'refresh_token' => $response->refresh_token );
 	}
 
+	public function RefreshToken($refreshToken) {
+		$response = $this->openeleme->RefreshToken($refreshToken);
+
+		// Need the Shop Id of the user
+		$shopId		= $this->openeleme->GetShopId( $response );
+
+		/*$this->InsertOrUpdateTokenOnDatabase( array ( 'shop_id' => $shopId, 
+												  'token' => $response [ 'access_token' ],
+												  'created_time' => time(),
+												  'refresh_token' => $response['refresh_token'] ));*/
+
+		return array('shopId' => $shopId, 'token' => $response->access_token, 'refresh_token' => $response->refresh_token );
+	}
+/*
 	private function GetTokenOnDatabase($shopId) {
 		$query = $this->db->get_where('merchant_eleme', array('shop_id' => $id), $limit, $offset);
 
@@ -47,7 +61,7 @@ class Eleme_merchant_model extends CI_Model {
 
 	private function InsertOrUpdateTokenOnDatabase($params) {
 		$this->db->replace('merchant_eleme', $params);
-	}
+	}*/
 
 	public function GetAuthUrl() {
 		return $this->openeleme->GetAuthUrl();

@@ -58,6 +58,8 @@ class Openeleme {
 	}
 
 	public function RefreshToken ( $refreshToken ) {
+		$client = new OAuthClient ( $this->config );
+		
 		return $client->get_token_by_refresh_token ( $refreshToken, "all" );
 	}
 
