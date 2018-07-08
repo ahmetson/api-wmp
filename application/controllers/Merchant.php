@@ -141,8 +141,9 @@ class Merchant extends CI_Controller {
 									'token'	=> $response['token'], 
 									'refreshToken' => $response['refresh_token'] ) );
 			} catch (Exception $e) {
+				$data = json_decode($e->getMessage());
 				json_response ( array ( 'response' => $this->config->item ( 'response_incorrect_request' ),
-									'message' => $e->getMessage() ) );
+									'message' => $data->error ) );
 			}
 
 			

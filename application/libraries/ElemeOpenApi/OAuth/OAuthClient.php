@@ -139,7 +139,6 @@ class OAuthClient
             throw new Exception("illegal response :" . $request_response);
         }
         if (isset($response->error)) {
-            echo "Illegal Exception Medet.";
             throw new IllegalRequestException(json_encode($response));
         }
 
