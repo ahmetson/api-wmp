@@ -44,10 +44,15 @@ class Merchant extends CI_Controller {
 		if ( null !== $shopId && null !== $pageNo && null !== $pageSize && null !== $deliveringDay ) {
 			$this->load->model('Eleme_merchant_model');
 
-			$orders = $this->Eleme_merchant_model->getOrders ( $token, $shopId, $pageNo, $pageSize, $deliveringDay );
+			try {
+				$orders = $this->Eleme_merchant_model->getOrders ( $token, $shopId, $pageNo, $pageSize, $deliveringDay );
 
-			json_response ( array ( 'response' => $this->config->item ( 'response_success' ),
+				json_response ( array ( 'response' => $this->config->item ( 'response_success' ),
 									'orders' => $orders ) );
+			} catch (UnauthorizedException $e) {
+				json_response ( array ( 'response' => $this->config->item ( 'response_incorrect_request' ),
+									'message' => 'auth_failed' ) );
+			}
 		}
 		json_response ( array ( 'response' => $this->config->item ( 'response_incorrect_request' ),
 									'message' => 'MISSED SOME PARAMETERS' ) );
